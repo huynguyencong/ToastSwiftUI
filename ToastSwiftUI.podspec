@@ -20,4 +20,6 @@ ToastSwiftUI is a simple open source that will help you to show a toast message 
   s.ios.deployment_target = '13.0'
 
   s.source_files = 'ToastSwiftUI/Classes/**/*'
+
+  s.swift_versions = '5.0'
 end
