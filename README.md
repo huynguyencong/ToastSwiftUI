@@ -28,6 +28,12 @@ it, simply add the following line to your Podfile:
 pod 'ToastSwiftUI'
 ```
 
+Then run `pod install` in your command line.
+
+#### Swift Package Manager
+In Xcode, select menu File -> Swift Packages -> Add Package Dependency. Select a target, then add this link to the input field:
+`https://github.com/huynguyencong/ToastSwiftUI.git`
+
 #### Manual
 
 Sometimes you don't want to use Cocoapod to install. In this case, you need to add it manually. It is very simple, just add Swift files in the `ToastSwiftUI/Classes` to your project.
