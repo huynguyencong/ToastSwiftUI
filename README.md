@@ -34,22 +34,39 @@ Sometimes you don't want to use Cocoapod to install. In this case, you need to a
 
 ## Usage
 
-You need to add `toast` modifier, with a `@State Bool`  variable to control when you want to show the toast . Please see below example:
+- Step 1: Add a @State variable to control when showing the toast.
+```swift
+@State private var isShowingToast = false
+```
+
+- Step 2: Add `toast` modifier to your view with the binding variable in step 1. You can use the built-in ToastView, or a custom view for toast view.
+```swift
+.toast(isPresenting: $isShowingToast, dismissType: .after(2)) {
+    ToastView(message: "Hello world!", icon: .success)
+}
+```
+
+- Step 3: Show the toast by set variable in the step 1 to true. You can also dismiss it by set it to false:
+```swift
+self.isShowingToast = true
+```
+
+See completed code below:
 
 ```swift
 struct ContentView: View {
-    // 1. Add a @State variable to control when showing the toast
+    // 1. 
     @State private var isShowingToast = false
     
     var body: some View {
         VStack(spacing: 20) {
             Button("Show toast") {
-                // 4a. Set @State variable to true if you want to show the toast
+                // 3.
                 self.isShowingToast = true
             }
             
             Button("Dismiss toast") {
-                // 4b. Set @State variable to false if you want to hide the toast
+                // 3.
                 self.isShowingToast = false
             }
             
@@ -57,11 +74,8 @@ struct ContentView: View {
         }
         .padding()
         
-        // 2. Add `toast` modifier to your view with the binding variable in step 1
+        // 2.
         .toast(isPresenting: $isShowingToast, dismissType: .after(2)) {
-            
-            // 3. This is the toast will be showed.
-            // You can use built-in ToastView, or any custom view created by you.
             ToastView(message: "Hello world!", icon: .success)
         }
     }

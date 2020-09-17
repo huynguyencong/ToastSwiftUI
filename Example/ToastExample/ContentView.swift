@@ -16,12 +16,12 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             Button("Show toast") {
-                // 4a. Set @State variable to true if you want to show the toast
+                // 4a. Set state variable to true if you want to show the toast
                 self.isShowingToast = true
             }
             
             Button("Dismiss toast") {
-                // 4b. Set @State variable to false if you want to hide the toast
+                // 4b. Set state variable to false if you want to hide the toast
                 self.isShowingToast = false
             }
             
@@ -29,11 +29,8 @@ struct ContentView: View {
         }
         .padding()
         
-        // 2. Add `toast` modifier to your view with the binding variable in step 1
+        // 2. Add `toast` modifier to your view with the binding variable in step 1. You can use the built-in ToastView, or a custom view for toast view.
         .toast(isPresenting: $isShowingToast, dismissType: .after(2)) {
-            
-            // 3. This is the toast will be showed.
-            // You can use built-in ToastView, or any custom view created by you.
             ToastView(message: "Hello world!", icon: .success)
         }
     }
