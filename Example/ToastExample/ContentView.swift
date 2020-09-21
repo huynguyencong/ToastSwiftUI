@@ -30,7 +30,7 @@ struct ContentView: View {
         .padding()
         
         // 2. Add `toast` modifier to your view with the binding variable in step 1. You can use the built-in ToastView, or a custom view for toast view.
-        .toast(isPresenting: $isShowingToast, dismissType: .after(2)) {
+        .popup(isPresenting: $isShowingToast, autoDismiss: .after(2)) {
             ToastView(message: "Hello world!", icon: .success)
         }
     }

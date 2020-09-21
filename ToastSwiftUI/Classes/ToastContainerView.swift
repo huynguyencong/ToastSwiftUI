@@ -1,5 +1,5 @@
 //
-//  ToastContainerView.swift
+//  PopupContainerView.swift
 //  SwiftUIDemo
 //
 //  Created by Huy Nguyen on 9/16/20.
@@ -8,18 +8,21 @@
 
 import SwiftUI
 
-public enum ToastDismissType {
+public enum PopupAutoDismissType {
+    /// don't auto dismiss
     case none
     case after(TimeInterval)
+    
+    /// String param is the message that user will read. It is used to calculate time
     case auto(String)
 }
 
-private struct ToastContainerView<Content: View, Toast: View>: View {
+private struct PopupContainerView<Content: View, Popup: View>: View {
     @Binding var isPresenting: Bool
-    let dismissType: ToastDismissType?
+    let autoDismiss: PopupAutoDismissType
     let onDisappear: (() -> Void)?
     let content: Content
-    let toast: () -> Toast
+    let popup: () -> Popup
     
     @State var timer: Timer? = nil
     
@@ -28,23 +31,23 @@ private struct ToastContainerView<Content: View, Toast: View>: View {
             content
             
             if isPresenting {
-                toast()
+                popup()
                     .transition(.opacity)
                     .animation(.default)
                     .padding()
                     .onAppear {
-                        self.onToastAppear()
+                        self.onPopupAppear()
                     }
                     .onDisappear {
-                        self.onToastDisappear()
+                        self.onPopupDisappear()
                     }
             }
         }
     }
     
-    private func onToastAppear() {
+    private func onPopupAppear() {
         var showTime: TimeInterval = 0
-        switch dismissType {
+        switch autoDismiss {
         case .after(let duration):
             showTime = duration
             
@@ -63,7 +66,7 @@ private struct ToastContainerView<Content: View, Toast: View>: View {
         }
     }
     
-    private func onToastDisappear() {
+    private func onPopupDisappear() {
         timer?.invalidate()
         timer = nil
         onDisappear?()
@@ -71,13 +74,13 @@ private struct ToastContainerView<Content: View, Toast: View>: View {
 }
 
 public extension View {
-    func toast<Toast: View>(
+    func popup<Popup: View>(
         isPresenting: Binding<Bool>,
-        dismissType: ToastDismissType? = .after(3),
+        autoDismiss: PopupAutoDismissType = .after(3),
         onDisappear: (() -> Void)? = nil,
-        toast: @escaping () -> Toast
+        popup: @escaping () -> Popup
     ) -> some View {
         
-        return ToastContainerView(isPresenting: isPresenting, dismissType: dismissType, onDisappear: onDisappear, content: self, toast: toast)
+        return PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, content: self, popup: popup)
     }
 }
