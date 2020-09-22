@@ -8,15 +8,6 @@
 
 import SwiftUI
 
-public enum PopupAutoDismissType {
-    /// don't auto dismiss
-    case none
-    case after(TimeInterval)
-    
-    /// String param is the message that user will read. It is used to calculate time
-    case auto(String)
-}
-
 private struct PopupContainerView<Content: View, Popup: View>: View {
     @Binding var isPresenting: Bool
     let autoDismiss: PopupAutoDismissType
@@ -76,11 +67,57 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
 public extension View {
     func popup<Popup: View>(
         isPresenting: Binding<Bool>,
-        autoDismiss: PopupAutoDismissType = .after(3),
+        autoDismiss: PopupAutoDismissType = .none,
         onDisappear: (() -> Void)? = nil,
         popup: @escaping () -> Popup
     ) -> some View {
         
         return PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, content: self, popup: popup)
+    }
+    
+    func toast(
+        isPresenting: Binding<Bool>,
+        message: String,
+        icon: ToastView.Icon? = nil,
+        backgroundColor: Color = Color(UIColor.systemBackground),
+        textColor: Color = Color(UIColor.label),
+        autoDismiss: ToastAutoDismissType = .auto,
+        onDisappear: (() -> Void)? = nil
+    ) -> some View {
+        
+        let popupAutoDismiss = autoDismiss.toPopupAutoDismissType(message: message)
+        
+        return PopupContainerView(isPresenting: isPresenting, autoDismiss: popupAutoDismiss, onDisappear: onDisappear, content: self) {
+            ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
+        }
+    }
+}
+
+public enum PopupAutoDismissType {
+    /// don't auto dismiss
+    case none
+    case after(TimeInterval)
+    
+    /// String param is the message that user will read. It is used to calculate time
+    case auto(String)
+}
+
+public enum ToastAutoDismissType {
+    /// don't auto dismiss
+    case none
+    case after(TimeInterval)
+    
+    /// String param is the message that user will read. It is used to calculate time
+    case auto
+    
+    func toPopupAutoDismissType(message: String) -> PopupAutoDismissType {
+        switch self {
+        case .none:
+            return .none
+        case .after(let duration):
+            return .after(duration)
+        case .auto:
+            return .auto(message)
+        }
     }
 }
