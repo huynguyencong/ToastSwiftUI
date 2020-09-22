@@ -15,7 +15,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
     let hasShadow: Bool
     let cornerRadius: CGFloat
     let overlayColor: Color
-    let tapOutsideToDismiss: Bool
+    let isTapOutsideToDismiss: Bool
     let content: Content
     let popup: () -> Popup
     
@@ -27,7 +27,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
             
             if isPresenting {
                 overlayColor
-                    .if(tapOutsideToDismiss) {
+                    .if(isTapOutsideToDismiss) {
                         $0.onTapGesture {
                             self.isPresenting = false
                         }
@@ -86,16 +86,16 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
 public extension View {
     func popup<Popup: View>(
         isPresenting: Binding<Bool>,
-        autoDismiss: PopupAutoDismissType = .none,
-        onDisappear: (() -> Void)? = nil,
         hasShadow: Bool = true,
         cornerRadius: CGFloat = 10,
         overlayColor: Color = Color.clear,
-        tapOutsideToDismiss: Bool = false,
+        isTapOutsideToDismiss: Bool = false,
+        autoDismiss: PopupAutoDismissType = .none,
+        onDisappear: (() -> Void)? = nil,
         popup: @escaping () -> Popup
     ) -> some View {
         
-        return PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, tapOutsideToDismiss: tapOutsideToDismiss, content: self, popup: popup)
+        return PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, content: self, popup: popup)
     }
     
     func toast(
@@ -110,7 +110,7 @@ public extension View {
         
         let popupAutoDismiss = autoDismiss.toPopupAutoDismissType(message: message)
         
-        return PopupContainerView(isPresenting: isPresenting, autoDismiss: popupAutoDismiss, onDisappear: onDisappear, hasShadow: true, cornerRadius: 10, overlayColor: .clear, tapOutsideToDismiss: false, content: self) {
+        return PopupContainerView(isPresenting: isPresenting, autoDismiss: popupAutoDismiss, onDisappear: onDisappear, hasShadow: true, cornerRadius: 10, overlayColor: .clear, isTapOutsideToDismiss: false, content: self) {
             ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
         }
     }
