@@ -49,8 +49,6 @@ public struct ToastView: View {
         }
         .padding(20)
         .background(backgroundColor)
-        .cornerRadius(10)
-        .shadow(color: Color(UIColor.tertiaryLabel), radius: 3)
     }
     
     private func iconView(icon: Icon) -> some View {
