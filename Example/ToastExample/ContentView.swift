@@ -41,7 +41,7 @@ struct ContentView: View {
         .padding()
         
         // 2. Add a `popup` modifier to your view with the binding variable in step 1
-        .popup(isPresenting: $isPresentingPopup) {
+        .popup(isPresenting: $isPresentingPopup, overlayColor: Color.black.opacity(0.4)) {
             MyPopup(isPresenting: $isPresentingPopup)
         }
         

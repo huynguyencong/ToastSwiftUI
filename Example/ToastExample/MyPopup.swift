@@ -21,7 +21,9 @@ struct MyPopup: View {
             Button("Dismiss") {
                 isPresenting = false
             }
+            .padding(.top)
         }
+        .padding()
     }
 }
 
