@@ -10,29 +10,43 @@ import SwiftUI
 import ToastSwiftUI
 
 struct ContentView: View {
-    // 1. Add a @State variable to control when showing the toast
-    @State private var isShowingToast = false
+    // 1. Add @State variables to control when showing the toast or popup
+    @State private var isPresentingPopup = false
+    @State private var isPresentingToast = false
     
     var body: some View {
         VStack(spacing: 20) {
             Button("Show toast") {
-                // 4a. Set state variable to true if you want to show the toast
-                self.isShowingToast = true
+                // 3a. Set state variable to true if you want to show the toast
+                self.isPresentingToast = true
             }
             
             Button("Dismiss toast") {
-                // 4b. Set state variable to false if you want to hide the toast
-                self.isShowingToast = false
+                // 3b. Set state variable to false if you want to hide the toast
+                self.isPresentingToast = false
+            }
+            
+            Button("Show popup") {
+                // 3c. Set state variable to true if you want to show the popup
+                self.isPresentingPopup = true
+            }
+            
+            Button("Dismiss popup") {
+                // 3d. Set state variable to true if you want to hide the popup
+                self.isPresentingPopup = false
             }
             
             Spacer()
         }
         .padding()
         
-        // 2. Add `toast` modifier to your view with the binding variable in step 1. You can use the built-in ToastView, or a custom view for toast view.
-        .popup(isPresenting: $isShowingToast, autoDismiss: .after(2)) {
-            ToastView(message: "Hello world!", icon: .success)
+        // 2. Add a `popup` modifier to your view with the binding variable in step 1
+        .popup(isPresenting: $isPresentingPopup) {
+            MyPopup(isPresenting: $isPresentingPopup)
         }
+        
+        // 2. Add a `toast` modifier to your view with the binding variable in step 1
+        .toast(isPresenting: $isPresentingToast, message: "Success", icon: .success)
     }
 }
 

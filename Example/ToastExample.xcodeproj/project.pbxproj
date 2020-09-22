@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0036A7392518B99C004AC04F /* MyPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0036A7382518B99C004AC04F /* MyPopup.swift */; };
 		00D8165A251205F900BE9531 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D81659251205F900BE9531 /* AppDelegate.swift */; };
 		00D8165C251205F900BE9531 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8165B251205F900BE9531 /* SceneDelegate.swift */; };
 		00D8165E251205F900BE9531 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D8165D251205F900BE9531 /* ContentView.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0036A7382518B99C004AC04F /* MyPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPopup.swift; sourceTree = "<group>"; };
 		00D81656251205F900BE9531 /* ToastExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToastExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00D81659251205F900BE9531 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00D8165B251205F900BE9531 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				00D81659251205F900BE9531 /* AppDelegate.swift */,
 				00D8165B251205F900BE9531 /* SceneDelegate.swift */,
 				00D8165D251205F900BE9531 /* ContentView.swift */,
+				0036A7382518B99C004AC04F /* MyPopup.swift */,
 				00D8165F251205FC00BE9531 /* Assets.xcassets */,
 				00D81664251205FC00BE9531 /* LaunchScreen.storyboard */,
 				00D81667251205FC00BE9531 /* Info.plist */,
@@ -88,7 +91,6 @@
 				29AF3539B80B8CA02191E548 /* Pods-ToastExample.debug.xcconfig */,
 				F9CF1C504E49873C8BD8EB6F /* Pods-ToastExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -217,6 +219,7 @@
 			files = (
 				00D8165A251205F900BE9531 /* AppDelegate.swift in Sources */,
 				00D8165C251205F900BE9531 /* SceneDelegate.swift in Sources */,
+				0036A7392518B99C004AC04F /* MyPopup.swift in Sources */,
 				00D8165E251205F900BE9531 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
