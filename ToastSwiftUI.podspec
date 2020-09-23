@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ToastSwiftUI'
-  s.version          = '0.1'
+  s.version          = '0.2'
   s.summary          = 'A simple way to show a toast message in SwiftUI.'
   s.description      = <<-DESC
 ToastSwiftUI is a simple open source that will help you to show a toast message in SwiftUI. A toast message is a pop up that show users some information, then quickly close.
@@ -21,5 +21,5 @@ ToastSwiftUI is a simple open source that will help you to show a toast message 
 
   s.source_files = 'ToastSwiftUI/Classes/**/*'
 
-  s.swift_versions = '5.0'
+  s.swift_version = '5.0'
 end
