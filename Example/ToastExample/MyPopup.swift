@@ -13,10 +13,10 @@ struct MyPopup: View {
     
     var body: some View {
         VStack {
-            Text("Success")
+            Text("Hello")
                 .font(.title)
             
-            Text("You just show a custom popup!")
+            Text("This is my popup!")
             
             Button("Dismiss") {
                 isPresenting = false

@@ -26,6 +26,8 @@ struct ContentView: View {
                 self.isPresentingToast = false
             }
             
+            Divider()
+            
             Button("Show popup") {
                 // 3c. Set state variable to true if you want to show the popup
                 self.isPresentingPopup = true
