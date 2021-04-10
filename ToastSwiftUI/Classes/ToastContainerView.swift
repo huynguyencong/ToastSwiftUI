@@ -39,7 +39,6 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                     .animation(.default)
                     .ifElse(hasShadow, {
                         $0
-                            .background(Color.white)
                             .cornerRadius(cornerRadius)
                             .shadow(color: Color(UIColor.tertiaryLabel), radius: 3)
                     }, else: {
