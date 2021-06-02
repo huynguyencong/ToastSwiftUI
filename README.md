@@ -155,6 +155,8 @@ struct ContentView: View {
 - backgroundColor
 - textColor
 
+## UIKit version
+[EzPopup for UIKit](https://github.com/huynguyencong/EzPopup)
 
 
 ## Author
