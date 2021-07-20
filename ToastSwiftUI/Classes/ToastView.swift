@@ -35,8 +35,8 @@ public struct ToastView: View {
     
     public var body: some View {
         VStack {
-            if icon != nil {
-                iconView(icon: icon!)
+            if let icon = icon {
+                iconView(icon: icon)
                     .frame(width: iconSize, height: iconSize)
             }
             
