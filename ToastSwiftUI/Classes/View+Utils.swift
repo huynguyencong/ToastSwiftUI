@@ -9,21 +9,21 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func `ifElse`<V: View, T: View>(_ condition: Bool, _ then: (Self) -> V, `else`: ((Self) -> T)) -> AnyView {
+    @ViewBuilder
+    func `ifElse`<V: View, T: View>(_ condition: Bool, _ then: @escaping (Self) -> V, `else`: @escaping ((Self) -> T)) -> some View {
         if condition {
-            return AnyView(then(self))
-        }
-        else {
-            return AnyView(`else`(self))
+            then(self)
+        } else {
+            `else`(self)
         }
     }
     
-    func `if`<V: View>(_ condition: Bool, _ then: (Self) -> V) -> AnyView {
+    @ViewBuilder
+    func `if`<V: View>(_ condition: Bool, _ then: (Self) -> V) -> some View {
         if condition {
-            return AnyView(then(self))
-        }
-        else {
-            return AnyView(self)
+            then(self)
+        } else {
+            self
         }
     }
 }

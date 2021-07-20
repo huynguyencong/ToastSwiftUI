@@ -51,18 +51,19 @@ public struct ToastView: View {
         .background(backgroundColor)
     }
     
+    @ViewBuilder
     private func iconView(icon: Icon) -> some View {
         switch icon {
         case .info:
-            return AnyView(Image(systemName: "info.circle").resizable())
+            Image(systemName: "info.circle").resizable()
         case .success:
-            return AnyView(Image(systemName: "checkmark.circle").resizable())
+            Image(systemName: "checkmark.circle").resizable()
         case .error:
-            return AnyView(Image(systemName: "xmark.circle").resizable())
+            Image(systemName: "xmark.circle").resizable()
         case .custom(let image):
-            return AnyView(image)
+            image
         case .loading:
-            return AnyView(ActivityIndicator())
+            ActivityIndicator()
         }
     }
 }
