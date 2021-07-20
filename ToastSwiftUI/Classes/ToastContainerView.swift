@@ -36,7 +36,6 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                 
                 popup()
                     .transition(.opacity)
-                    .animation(.default)
                     .ifElse(hasShadow, {
                         $0
                             .cornerRadius(cornerRadius)
