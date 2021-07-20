@@ -102,8 +102,8 @@ public extension View {
         isPresenting: Binding<Bool>,
         hasShadow: Bool = true,
         cornerRadius: CGFloat = 10,
-        overlayColor: Color = Color.clear,
-        isTapOutsideToDismiss: Bool = false,
+        overlayColor: Color = Color.gray.opacity(0.1),
+        isTapOutsideToDismiss: Bool = true,
         autoDismiss: PopupAutoDismissType = .none,
         onDisappear: (() -> Void)? = nil,
         popup: @escaping () -> Popup
