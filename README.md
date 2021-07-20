@@ -49,10 +49,11 @@ Sometimes you don't want to use Cocoapod to install. In this case, you need to a
 @State private var isPresentingPopup = false
 ```
 
-- Step 2: Add `popup` modifier to your view with the binding variable in step 1. `MyPopup` is a view that you want to show as a popup.
+- Step 2: Add `popup` modifier to your view with the binding variable in step 1. `MyPopup` is a view that you want to show as a popup. Setting frame is not necessary if you are happy with the intrinsic size of the pop up view
 ```swift
 .popup(isPresenting: $isPresentingPopup, overlayColor: Color.black.opacity(0.4)) {
     MyPopup(isPresenting: $isPresentingPopup)
+        .frame(width: 300, height: 500)         // it is not required
 }
 ```
 
@@ -118,6 +119,7 @@ struct ContentView: View {
         // 2. Add a `popup` modifier to your view with the binding variable in step 1
         .popup(isPresenting: $isPresentingPopup) {
             MyPopup(isPresenting: $isPresentingPopup)
+                .frame(width: 300, height: 500)
         }
         
         // 2. Add a `toast` modifier to your view with the binding variable in step 1
@@ -128,7 +130,7 @@ struct ContentView: View {
 
 ### Customization
 
-#### `popup` modifier
+#### `popup` modifier parameters:
 - autoDismiss
     - none: No auto dismiss, you have to dismiss manually.
     - after(TimeInterval): Auto dismiss after a duration that you pass to.
@@ -139,7 +141,7 @@ struct ContentView: View {
 - overlayColor
 - isTapOutsideToDismiss
 
-#### `toast` modifier
+#### `toast` modifier parameters:
 - autoDismiss
     - none: No auto dismiss, you have to dismiss manually.
     - after(TimeInterval): Auto dismiss after a duration that you pass to.
