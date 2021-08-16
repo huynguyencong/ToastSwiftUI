@@ -126,6 +126,25 @@ public extension View {
             ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
         })
     }
+    
+    func toast(
+        _ messageBinding: Binding<String?>,
+        icon: ToastView.Icon? = nil,
+        backgroundColor: Color = Color(UIColor.systemBackground),
+        textColor: Color = Color(UIColor.label),
+        autoDismiss: ToastAutoDismissType = .auto,
+        onDisappear: (() -> Void)? = nil
+    ) -> some View {
+        let message = messageBinding.wrappedValue ?? ""
+        
+        let isPresenting = Binding<Bool> {
+            return messageBinding.wrappedValue != nil
+        } set: { _ in
+            messageBinding.wrappedValue = nil
+        }
+        
+        return toast(isPresenting: isPresenting, message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor, autoDismiss: autoDismiss, onDisappear: onDisappear)
+    }
 }
 
 public enum PopupAutoDismissType {
