@@ -139,8 +139,10 @@ public extension View {
         
         let isPresenting = Binding<Bool> {
             return messageBinding.wrappedValue != nil
-        } set: { _ in
-            messageBinding.wrappedValue = nil
+        } set: { value in
+            if value == false {
+                messageBinding.wrappedValue = nil
+            }
         }
         
         return toast(isPresenting: isPresenting, message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor, autoDismiss: autoDismiss, onDisappear: onDisappear)
