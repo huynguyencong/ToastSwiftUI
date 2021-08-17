@@ -79,36 +79,75 @@ self.isPresentingPopup = true
 self.isPresentingPopup = true
 ```
 
-See the completed code below, it has both above example to show both toast and popup:
+### Showing a toast with a message state variable
+- Step 1: Add a optional `String` `@State` variable. When this optional variable has value, it will trigger a toast.
+```swift
+@State private var toastMessage: String?
+```
+
+- Step 2: Add `toast` modifier, pass the `Binding` ($) of the above message variable as the first param.
+```swift
+.toast($toastMessage)
+```
+
+- Step 3: Show the toast by setting variable in the step 1 to a `String`. You can also dismiss it by set it to `nil`:
+```swift
+toastMessage = "Hello world!"
+```
+
+See the completed code below, it has 3 examples to show both toast and popup in different way:
 
 ```swift
 import SwiftUI
 import ToastSwiftUI
 
 struct ContentView: View {
-    // 1. Add @State variables to control when showing the toast or popup
+    // 1.1. Example 1: Add @State variables to control when showing the popup
     @State private var isPresentingPopup = false
+    
+    // 1.2. Example 2: First way to show a toast. Add @State variables to control when showing the toast
     @State private var isPresentingToast = false
+    
+    // 1.3. Example 3: Second way to show a toast. Add an optional String @State variables to control when showing the toast
+    @State private var toastMessage: String?
+    
+    @State private var count = 0
     
     var body: some View {
         VStack(spacing: 20) {
-            Button("Show toast") {
-                // 3a. Set state variable to true if you want to show the toast
+            Button("Show a success toast") {
+                // 3.2.1. Set state variable to true if you want to show the toast
                 self.isPresentingToast = true
             }
             
-            Button("Dismiss toast") {
-                // 3b. Set state variable to false if you want to hide the toast
+            Button("Dismiss the success toast") {
+                // 3.2.2. Set state variable to false if you want to hide the toast
                 self.isPresentingToast = false
             }
             
+            Divider()
+            
+            Button("Show counter toast") {
+                // 3.3.1. Set text variable you want to show
+                toastMessage = "Toast number \(count)"
+                
+                count += 1
+            }
+            
+            Button("Dismiss counter toast") {
+                // 3.3.2. Set text variable to nil
+                self.toastMessage = nil
+            }
+            
+            Divider()
+            
             Button("Show popup") {
-                // 3c. Set state variable to true if you want to show the popup
+                // 3.1.1. Set state variable to true if you want to show the popup
                 self.isPresentingPopup = true
             }
             
             Button("Dismiss popup") {
-                // 3d. Set state variable to true if you want to hide the popup
+                // 3.1.2. Set state variable to true if you want to hide the popup
                 self.isPresentingPopup = false
             }
             
@@ -116,14 +155,17 @@ struct ContentView: View {
         }
         .padding()
         
-        // 2. Add a `popup` modifier to your view with the binding variable in step 1
+        // 2.1. Add a `popup` modifier to your view with the binding variable in step 1
         .popup(isPresenting: $isPresentingPopup) {
             MyPopup(isPresenting: $isPresentingPopup)
-                .frame(width: 300, height: 500)
+                .background(Color(.systemBackground))
         }
         
-        // 2. Add a `toast` modifier to your view with the binding variable in step 1
+        // 2.2. Add a `toast` modifier to your view with the binding variable in step 1
         .toast(isPresenting: $isPresentingToast, message: "Success", icon: .success)
+        
+        // 2.3. Add a `toast` modifier to your view with the binding variable in step 1
+        .toast($toastMessage)
     }
 }
 ```
