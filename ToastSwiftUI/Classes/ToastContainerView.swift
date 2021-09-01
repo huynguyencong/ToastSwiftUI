@@ -105,7 +105,7 @@ public extension View {
         isTapOutsideToDismiss: Bool = true,
         autoDismiss: PopupAutoDismissType = .none,
         onDisappear: (() -> Void)? = nil,
-        popup: @escaping () -> Popup
+        @ViewBuilder popup: @escaping () -> Popup
     ) -> some View {
         modifier(PopupModifier(isPresenting: isPresenting, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, autoDismiss: autoDismiss, onDisappear: onDisappear, popup: popup))
     }
