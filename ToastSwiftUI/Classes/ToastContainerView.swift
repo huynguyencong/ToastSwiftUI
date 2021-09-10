@@ -35,6 +35,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                     .transition(.opacity)
                 
                 popup()
+                    .background(Color(UIColor.systemBackground))
                     .transition(.opacity)
                     .ifElse(hasShadow, {
                         $0
