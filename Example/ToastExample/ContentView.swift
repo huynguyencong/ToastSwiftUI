@@ -23,7 +23,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Button("Show a success toast") {
+            Button("Show a success toast with a boolean variable") {
                 // 3.2.1. Set state variable to true if you want to show the toast
                 self.isPresentingToast = true
             }
@@ -35,14 +35,14 @@ struct ContentView: View {
             
             Divider()
             
-            Button("Show counter toast") {
+            Button("Show toast with a text binding") {
                 // 3.3.1. Set text variable you want to show
                 toastMessage = "Toast number \(count)"
                 
                 count += 1
             }
             
-            Button("Dismiss counter toast") {
+            Button("Dismiss toast") {
                 // 3.3.2. Set text variable to nil
                 self.toastMessage = nil
             }
@@ -64,10 +64,10 @@ struct ContentView: View {
         .padding()
         
         // 2.1. Add a `popup` modifier to your view with the binding variable in step 1
-        .popup(isPresenting: $isPresentingPopup) {
+        .popup(isPresenting: $isPresentingPopup, popup:
             MyPopup(isPresenting: $isPresentingPopup)
                 .background(Color(.systemBackground))
-        }
+        )
         
         // 2.2. Add a `toast` modifier to your view with the binding variable in step 1
         .toast(isPresenting: $isPresentingToast, message: "Success", icon: .success)
