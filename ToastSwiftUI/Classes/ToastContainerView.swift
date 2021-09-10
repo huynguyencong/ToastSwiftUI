@@ -17,7 +17,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
     let overlayColor: Color
     let isTapOutsideToDismiss: Bool
     let content: Content
-    let popup: () -> Popup
+    let popup: Popup
     
     @State var timer: Timer? = nil
     
@@ -34,7 +34,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                     }
                     .transition(.opacity)
                 
-                popup()
+                popup
                     .background(Color(UIColor.systemBackground))
                     .transition(.opacity)
                     .ifElse(hasShadow, {
@@ -90,7 +90,7 @@ struct PopupModifier<Popup: View>: ViewModifier {
     var isTapOutsideToDismiss: Bool = false
     var autoDismiss: PopupAutoDismissType = .none
     var onDisappear: (() -> Void)? = nil
-    var popup: () -> Popup
+    var popup: Popup
     
     func body(content: Self.Content) -> some View {
         PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, content: content, popup: popup)
@@ -106,7 +106,7 @@ public extension View {
         isTapOutsideToDismiss: Bool = true,
         autoDismiss: PopupAutoDismissType = .none,
         onDisappear: (() -> Void)? = nil,
-        @ViewBuilder popup: @escaping () -> Popup
+        popup: Popup
     ) -> some View {
         modifier(PopupModifier(isPresenting: isPresenting, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, autoDismiss: autoDismiss, onDisappear: onDisappear, popup: popup))
     }
@@ -122,10 +122,9 @@ public extension View {
     ) -> some View {
         
         let popupAutoDismiss = autoDismiss.toPopupAutoDismissType(message: message)
+        let toastView = ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
         
-        return modifier(PopupModifier(isPresenting: isPresenting, hasShadow: true, cornerRadius: 10, overlayColor: .clear, isTapOutsideToDismiss: false, autoDismiss: popupAutoDismiss, onDisappear: onDisappear) {
-            ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
-        })
+        return modifier(PopupModifier(isPresenting: isPresenting, hasShadow: true, cornerRadius: 10, overlayColor: .clear, isTapOutsideToDismiss: false, autoDismiss: popupAutoDismiss, onDisappear: onDisappear, popup: toastView))
     }
     
     func toast(
