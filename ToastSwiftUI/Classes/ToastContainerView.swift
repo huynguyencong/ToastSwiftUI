@@ -22,10 +22,13 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
     @State var timer: Timer? = nil
     
     var body: some View {
-        ZStack {
-            content
-            
-            if isPresenting {
+        content
+            .overlay(overlayView)
+    }
+    
+    @ViewBuilder private var overlayView: some View {
+        if isPresenting {
+            ZStack {
                 overlayColor
                     .if(isTapOutsideToDismiss) {
                         $0.onTapGesture {
