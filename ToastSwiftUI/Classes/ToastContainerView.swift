@@ -15,6 +15,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
     let hasShadow: Bool
     let cornerRadius: CGFloat
     let overlayColor: Color
+    let backgroundColor: Color?
     let isTapOutsideToDismiss: Bool
     let content: Content
     let popup: Popup
@@ -38,7 +39,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                     .transition(.opacity)
                 
                 popup
-                    .background(Color(UIColor.systemBackground))
+                    .background(backgroundColor ?? Color(UIColor.systemBackground))
                     .transition(.opacity)
                     .ifElse(hasShadow, {
                         $0
@@ -91,13 +92,25 @@ struct PopupModifier<Popup: View>: ViewModifier {
     var hasShadow: Bool = true
     var cornerRadius: CGFloat = 10
     var overlayColor: Color = Color.clear
+    var backgroundColor: Color?
     var isTapOutsideToDismiss: Bool = false
     var autoDismiss: PopupAutoDismissType = .none
     var onDisappear: (() -> Void)? = nil
     var popup: Popup
     
     func body(content: Self.Content) -> some View {
-        PopupContainerView(isPresenting: isPresenting, autoDismiss: autoDismiss, onDisappear: onDisappear, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, content: content, popup: popup)
+        PopupContainerView(
+            isPresenting: isPresenting,
+            autoDismiss: autoDismiss,
+            onDisappear: onDisappear,
+            hasShadow: hasShadow,
+            cornerRadius: cornerRadius,
+            overlayColor: overlayColor,
+            backgroundColor: backgroundColor,
+            isTapOutsideToDismiss: isTapOutsideToDismiss,
+            content: content,
+            popup: popup
+        )
     }
 }
 
@@ -107,12 +120,25 @@ public extension View {
         hasShadow: Bool = true,
         cornerRadius: CGFloat = 10,
         overlayColor: Color = Color.gray.opacity(0.1),
+        backgroundColor: Color = Color(UIColor.systemBackground),
         isTapOutsideToDismiss: Bool = true,
         autoDismiss: PopupAutoDismissType = .none,
         onDisappear: (() -> Void)? = nil,
         popup: Popup
     ) -> some View {
-        modifier(PopupModifier(isPresenting: isPresenting, hasShadow: hasShadow, cornerRadius: cornerRadius, overlayColor: overlayColor, isTapOutsideToDismiss: isTapOutsideToDismiss, autoDismiss: autoDismiss, onDisappear: onDisappear, popup: popup))
+        modifier(
+            PopupModifier(
+                isPresenting: isPresenting,
+                hasShadow: hasShadow,
+                cornerRadius: cornerRadius,
+                overlayColor: overlayColor,
+                backgroundColor: backgroundColor,
+                isTapOutsideToDismiss: isTapOutsideToDismiss,
+                autoDismiss: autoDismiss,
+                onDisappear: onDisappear,
+                popup: popup
+            )
+        )
     }
     
     func toast(
@@ -128,7 +154,18 @@ public extension View {
         let popupAutoDismiss = autoDismiss.toPopupAutoDismissType(message: message)
         let toastView = ToastView(message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor)
         
-        return modifier(PopupModifier(isPresenting: isPresenting, hasShadow: true, cornerRadius: 10, overlayColor: .clear, isTapOutsideToDismiss: false, autoDismiss: popupAutoDismiss, onDisappear: onDisappear, popup: toastView))
+        return modifier(
+            PopupModifier(
+                isPresenting: isPresenting, 
+                hasShadow: true,
+                cornerRadius: 10,
+                overlayColor: .clear,
+                isTapOutsideToDismiss: false,
+                autoDismiss: popupAutoDismiss,
+                onDisappear: onDisappear,
+                popup: toastView
+            )
+        )
     }
     
     func toast(
@@ -149,7 +186,15 @@ public extension View {
             }
         }
         
-        return toast(isPresenting: isPresenting, message: message, icon: icon, backgroundColor: backgroundColor, textColor: textColor, autoDismiss: autoDismiss, onDisappear: onDisappear)
+        return toast(
+            isPresenting: isPresenting,
+            message: message,
+            icon: icon,
+            backgroundColor: backgroundColor,
+            textColor: textColor,
+            autoDismiss: autoDismiss,
+            onDisappear: onDisappear
+        )
     }
 }
 

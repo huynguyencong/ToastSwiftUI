@@ -66,7 +66,6 @@ struct ContentView: View {
         // 2.1. Add a `popup` modifier to your view with the binding variable in step 1
         .popup(isPresenting: $isPresentingPopup, popup:
             MyPopup(isPresenting: $isPresentingPopup)
-                .background(Color(.systemBackground))
         )
         
         // 2.2. Add a `toast` modifier to your view with the binding variable in step 1
