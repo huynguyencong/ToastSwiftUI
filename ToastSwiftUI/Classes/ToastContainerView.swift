@@ -47,6 +47,7 @@ private struct PopupContainerView<Content: View, Popup: View>: View {
                     }, else: {
                         $0.cornerRadius(cornerRadius)
                     })
+                    .padding(20)
                     .onAppear {
                         self.onPopupAppear()
                     }
